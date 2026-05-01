@@ -3,6 +3,7 @@ import TodoItem from "./TodoItem";
 
 export default function TodoList({ todos, onToggle, onEdit, onDelete, loading }) {
   const [filter, setFilter] = useState("all");
+  const [search, setSearch] = useState("");
 
   if (loading) {
     return (
@@ -33,8 +34,16 @@ export default function TodoList({ todos, onToggle, onEdit, onDelete, loading })
     );
   }
 
-  const activeTodos = todos.filter((t) => !t.done);
-  const completedTodos = todos.filter((t) => t.done);
+  const searchLower = search.toLowerCase();
+  const searchedTodos = search
+    ? todos.filter((t) =>
+        t.title.toLowerCase().includes(searchLower) ||
+        (t.description && t.description.toLowerCase().includes(searchLower))
+      )
+    : todos;
+
+  const activeTodos = searchedTodos.filter((t) => !t.done);
+  const completedTodos = searchedTodos.filter((t) => t.done);
 
   const filteredActive = filter === "completed" ? [] : activeTodos;
   const filteredCompleted = filter === "active" ? [] : completedTodos;
@@ -61,6 +70,28 @@ export default function TodoList({ todos, onToggle, onEdit, onDelete, loading })
           className="progress-bar-fill"
           style={{ width: `${todos.length > 0 ? (completedTodos.length / todos.length) * 100 : 0}%` }}
         />
+      </div>
+
+      <div className="search-bar" id="search-bar">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="11" cy="11" r="8"/>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <input
+          type="text"
+          placeholder="Search tasks..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          id="search-input"
+        />
+        {search && (
+          <button className="search-clear" onClick={() => setSearch("")}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"/>
+              <line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        )}
       </div>
 
       <div className="filter-bar" id="filter-bar">
