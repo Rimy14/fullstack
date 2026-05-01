@@ -1,4 +1,4 @@
-const API_BASE = "http://localhost:5000/api/todos";
+const API_BASE = "/api/todos";
 
 /**
  * Fetch all todos from the API
