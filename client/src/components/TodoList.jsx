@@ -1,6 +1,9 @@
+import { useState } from "react";
 import TodoItem from "./TodoItem";
 
 export default function TodoList({ todos, onToggle, onEdit, onDelete, loading }) {
+  const [filter, setFilter] = useState("all");
+
   if (loading) {
     return (
       <div className="loading-state" id="loading-state">
@@ -33,6 +36,10 @@ export default function TodoList({ todos, onToggle, onEdit, onDelete, loading })
   const activeTodos = todos.filter((t) => !t.done);
   const completedTodos = todos.filter((t) => t.done);
 
+  const filteredActive = filter === "completed" ? [] : activeTodos;
+  const filteredCompleted = filter === "active" ? [] : completedTodos;
+  const showEmpty = filteredActive.length === 0 && filteredCompleted.length === 0;
+
   return (
     <div className="todo-list" id="todo-list">
       <div className="list-stats">
@@ -49,14 +56,33 @@ export default function TodoList({ todos, onToggle, onEdit, onDelete, loading })
         </span>
       </div>
 
-      {activeTodos.length > 0 && (
+      <div className="filter-bar" id="filter-bar">
+        {["all", "active", "completed"].map((f) => (
+          <button
+            key={f}
+            className={`filter-btn ${filter === f ? "active" : ""}`}
+            onClick={() => setFilter(f)}
+            id={`filter-${f}`}
+          >
+            {f.charAt(0).toUpperCase() + f.slice(1)}
+          </button>
+        ))}
+      </div>
+
+      {showEmpty && (
+        <div className="empty-state" style={{ padding: "2rem" }}>
+          <p>No {filter} tasks</p>
+        </div>
+      )}
+
+      {filteredActive.length > 0 && (
         <div className="todo-section">
           <div className="section-header">
             <span className="section-dot active" />
             <h3>Active Tasks</h3>
           </div>
           <div className="todo-items">
-            {activeTodos.map((todo) => (
+            {filteredActive.map((todo) => (
               <TodoItem
                 key={todo._id}
                 todo={todo}
@@ -69,14 +95,14 @@ export default function TodoList({ todos, onToggle, onEdit, onDelete, loading })
         </div>
       )}
 
-      {completedTodos.length > 0 && (
+      {filteredCompleted.length > 0 && (
         <div className="todo-section">
           <div className="section-header">
             <span className="section-dot completed" />
             <h3>Completed</h3>
           </div>
           <div className="todo-items">
-            {completedTodos.map((todo) => (
+            {filteredCompleted.map((todo) => (
               <TodoItem
                 key={todo._id}
                 todo={todo}
