@@ -1,6 +1,7 @@
 import TodoForm from "./components/TodoForm";
 import TodoList from "./components/TodoList";
 import ErrorBanner from "./components/ErrorBanner";
+import Toast, { useToast } from "./components/Toast";
 import { useTodos } from "./hooks/useTodos";
 import "./App.css";
 
@@ -15,6 +16,22 @@ function App() {
     removeTodo,
     clearError,
   } = useTodos();
+  const { toasts, addToast, dismissToast } = useToast();
+
+  const handleAdd = async (data) => {
+    await addTodo(data);
+    addToast("Task created successfully!", "success");
+  };
+
+  const handleEdit = async (id, data) => {
+    await editTodo(id, data);
+    addToast("Task updated successfully!", "success");
+  };
+
+  const handleDelete = async (id) => {
+    await removeTodo(id);
+    addToast("Task deleted", "success");
+  };
 
   return (
     <div className="app">
@@ -41,12 +58,12 @@ function App() {
         <ErrorBanner message={error} onDismiss={clearError} />
 
         <main className="main-content">
-          <TodoForm onAdd={addTodo} />
+          <TodoForm onAdd={handleAdd} />
           <TodoList
             todos={todos}
             onToggle={toggleDone}
-            onEdit={editTodo}
-            onDelete={removeTodo}
+            onEdit={handleEdit}
+            onDelete={handleDelete}
             loading={loading}
           />
         </main>
@@ -55,6 +72,8 @@ function App() {
           <p>Built with React & Express · TaskFlow</p>
         </footer>
       </div>
+
+      <Toast toasts={toasts} onDismiss={dismissToast} />
     </div>
   );
 }
