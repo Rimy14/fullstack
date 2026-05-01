@@ -1,0 +1,19 @@
+{
+  "name": "hiring-fullstack-todo",
+  "version": "1.0.0",
+  "description": "Full-stack TODO application with React frontend and Express backend",
+  "private": true,
+  "scripts": {
+    "install:client": "cd client && npm install",
+    "install:server": "cd server && npm install",
+    "install:all": "npm run install:server && npm run install:client",
+    "dev:client": "cd client && npm run dev",
+    "dev:server": "cd server && npm run dev",
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "build:client": "cd client && npm run build",
+    "start:server": "cd server && npm start"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
