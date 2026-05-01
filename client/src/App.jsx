@@ -52,7 +52,14 @@ function App() {
             </div>
             <h1>TaskFlow</h1>
           </div>
-          <p className="subtitle">Organize your day, one task at a time</p>
+          <p className="subtitle">
+            Organize your day, one task at a time
+            {!loading && todos.length > 0 && (
+              <span className="header-count">
+                {" · "}{todos.filter(t => t.done).length}/{todos.length} done
+              </span>
+            )}
+          </p>
         </header>
 
         <ErrorBanner message={error} onDismiss={clearError} />
