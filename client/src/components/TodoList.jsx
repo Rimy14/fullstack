@@ -56,6 +56,13 @@ export default function TodoList({ todos, onToggle, onEdit, onDelete, loading })
         </span>
       </div>
 
+      <div className="progress-bar-container" id="progress-bar">
+        <div
+          className="progress-bar-fill"
+          style={{ width: `${todos.length > 0 ? (completedTodos.length / todos.length) * 100 : 0}%` }}
+        />
+      </div>
+
       <div className="filter-bar" id="filter-bar">
         {["all", "active", "completed"].map((f) => (
           <button
