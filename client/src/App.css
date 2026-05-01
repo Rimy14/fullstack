@@ -567,6 +567,20 @@
   color: #f87171;
 }
 
+.btn-delete.confirming {
+  width: auto;
+  padding: 0.25rem 0.6rem;
+  background: rgba(239, 68, 68, 0.2);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.confirm-text {
+  font-size: 0.7rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
 /* === Edit Form === */
 .todo-edit-form {
   width: 100%;
