@@ -78,7 +78,11 @@ npm run dev:client
 - ✅ Create a TODO with title and optional description
 - ✅ Edit a TODO's title and description (inline editing)
 - ✅ Toggle done/undone status
-- ✅ Delete a TODO
+- ✅ Delete a TODO (with confirmation step)
+- ✅ Search tasks by title or description
+- ✅ Filter by status (All / Active / Completed)
+- ✅ Visual progress bar for task completion
+- ✅ Toast notifications for user feedback
 - ✅ Form validation (client-side and server-side)
 - ✅ Optimistic UI updates with rollback on error
 - ✅ Loading and error states
