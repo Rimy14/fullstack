@@ -2,32 +2,7 @@ const API_BASE = "/api/todos";
 let useLocalStorage = false;
 
 // Default sample tasks to pre-populate local storage so the application is not empty on first launch
-const defaultTodos = [
-  {
-    _id: "local-1",
-    title: "🚀 Learn React and Node.js",
-    description: "Understand full-stack integration and REST APIs.",
-    done: true,
-    createdAt: new Date(Date.now() - 3600000 * 2).toISOString(),
-    updatedAt: new Date(Date.now() - 3600000 * 2).toISOString(),
-  },
-  {
-    _id: "local-2",
-    title: "📝 Set up project structure",
-    description: "Create folder layout for client and server.",
-    done: true,
-    createdAt: new Date(Date.now() - 3600000).toISOString(),
-    updatedAt: new Date(Date.now() - 3600000).toISOString(),
-  },
-  {
-    _id: "local-3",
-    title: "⚡ Configure deployment and fallback database",
-    description: "Implement automated fallback to in-memory database or localStorage to allow anyone to test.",
-    done: false,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-  },
-];
+const defaultTodos = [];
 
 // Helper to retrieve tasks from local storage
 const getLocalTodos = () => {

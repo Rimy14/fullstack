@@ -26,30 +26,7 @@ const todoSchema = new mongoose.Schema(
 
 const MongooseTodo = mongoose.model("Todo", todoSchema);
 
-// In-memory fallback database pre-seeded with sample tasks
-const memoryTodos = [
-  createMemoryTodo({
-    _id: "mock-1",
-    title: "🚀 Learn React and Node.js",
-    description: "Understand full-stack integration and REST APIs.",
-    done: true,
-    createdAt: new Date(Date.now() - 3600000 * 2), // 2 hours ago
-  }),
-  createMemoryTodo({
-    _id: "mock-2",
-    title: "📝 Set up project structure",
-    description: "Create folder layout for client and server.",
-    done: true,
-    createdAt: new Date(Date.now() - 3600000), // 1 hour ago
-  }),
-  createMemoryTodo({
-    _id: "mock-3",
-    title: "⚡ Configure deployment and fallback database",
-    description: "Implement automated fallback to in-memory database to allow anyone to test.",
-    done: false,
-    createdAt: new Date(),
-  }),
-];
+const memoryTodos = [];
 
 // Helper to create a memory todo object with mongoose-like methods (such as .save())
 function createMemoryTodo(data) {
